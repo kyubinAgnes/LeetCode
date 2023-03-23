@@ -6,20 +6,16 @@
 #         self.right = right
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-        def sortToBST(nums):
 
-            if len(nums) == 0:
+        if len(nums) == 0:
+            return None
+        if len(nums) == 1:
+            return TreeNode(nums[0])
+        
+        center = len(nums) // 2
+        
+        node = TreeNode(nums[center])
+        node.left = self.sortedArrayToBST(nums[:center])
+        node.right = self.sortedArrayToBST(nums[center + 1:])
 
-                return None
-
-            mid = nums[len(nums) // 2]
-
-            root = TreeNode(mid)
-
-            root.left = sortToBST(nums[:len(nums) // 2])
-
-            root.right = sortToBST(nums[len(nums) // 2 + 1:])
-
-            return root
-
-        return sortToBST(nums)
+        return node
